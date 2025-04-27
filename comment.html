@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comment Box</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div id="commentShow" class="m-10"></div>
+
+    <div class="m-10">
+        <div>
+            <textarea 
+                class="border border-black p-5 w-full" 
+                id="comment-input" 
+                rows="5"
+                placeholder="Type your comment and press Enter..."></textarea>
+            <br>
+            <button id="post" class="border border-green-500 p-5 mt-5">Post your comment</button>
+        </div>
+    </div>
+
+    <script>
+        const postComment = () => {
+            const commentBox = document.getElementById('comment-input');
+            const commentText = commentBox.value.trim();
+
+            if(commentText) {
+                const p = document.createElement('p');
+                p.style.cssText = 'background-color: teal; padding: 20px; margin: 20px; color: white;';
+                p.innerText = commentText;
+                
+                const ui = document.getElementById('commentShow');
+                ui.appendChild(p);
+
+                commentBox.value = ''; 
+            }
+        };
+
+        document.getElementById('post').addEventListener('click', postComment);
+
+        // Handle Enter key
+        document.getElementById('comment-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault(); 
+                postComment();
+            }
+        });
+    </script>
+</body>
+</html>
